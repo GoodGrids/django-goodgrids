@@ -23,13 +23,11 @@ You can then include this in your `urls.py`:
 
 ```python
 url(r'^download-data-as-excel-file/?$',
-        views.DownloadDataAsExcelView.as_view(),
-        name='download_data_as_excel_file'),
+    views.DownloadDataAsExcelView.as_view(),
+    name='download_data_as_excel_file'),
 ```
 
 # Using Goodgrids with function-based views
-
-Function-based Views
 
 Let's assume your Django application already has a function-based view named `download_data_as_csv_view` that returns a CSV file for your users to download. To create a view that let's your users download Excel files, use the following snippet:
 
@@ -49,8 +47,8 @@ You can then include this in your `urls.py`:
 
 ```python
 url(r'^download-data-as-excel-file/?$',
-       views.download_data_as_excel_view,
-       name='download_data_as_excel_file'),
+    views.download_data_as_excel_view,
+    name='download_data_as_excel_file'),
 ```
 
 
