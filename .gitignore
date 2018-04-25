@@ -21,3 +21,8 @@ node_modules/
 /collected_static
 debug.log
 error.log
+*.egg-info
+build
+dist
+*.egg
+.eggs
