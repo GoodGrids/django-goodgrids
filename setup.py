@@ -19,7 +19,7 @@ setup(
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     keywords='csv excel spreadsheet conversion',
     classifiers=[
-        'Development Status :: 5 - Production/Beta',
+        'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Framework :: Django :: 1.11',
