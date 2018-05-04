@@ -20,7 +20,7 @@ setup(
     author_email='support@goodgrids.com',
     url='https://github.com/goodgrids/django-goodgrids',
     project_urls=OrderedDict([
-        # ("Documentation", "https://django-goodgrids.readthedocs.io/en/%s/" % release_tag),
+        ("Documentation", "http://django-goodgrids.readthedocs.io/en/latest/"),
         ("GoodGrids", "https://goodgrids.com"),
         ("Source", "https://github.com/goodgrids/django-goodgrids"),
         ("PyPi", "https://pypi.org/project/django-goodgrids"),
