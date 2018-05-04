@@ -1,0 +1,165 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Welcome to django-goodgrids’s documentation! &#8212; django-goodgrids  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-django-goodgrids-s-documentation">
+<h1>Welcome to django-goodgrids’s documentation!<a class="headerlink" href="#welcome-to-django-goodgrids-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="django-goodgrids">
+<h1>django-goodgrids<a class="headerlink" href="#django-goodgrids" title="Permalink to this headline">¶</a></h1>
+<p>Django API for creating Excel files from CSV using the <a class="reference external" href="https://goodgrids.com">web-based
+GoodGrids API</a>. Convert CSV files to Excel spreadsheets with ease.
+Let your users download nicely formatted Excel files instead of ugly CSVs.</p>
+</div>
+<div class="section" id="about-goodgrids">
+<h1>About GoodGrids<a class="headerlink" href="#about-goodgrids" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://goodgrids.com">GoodGrids</a> is a service for creating Excel files from CSV files
+programmatically. You upload an example Excel file to serve as a
+template. You can then use the GoodGrids API to create Excel files from
+CSV files based on this template. You can style cells, include formulas,
+and avoid all the issues that plague CSV files.</p>
+</div>
+<div class="section" id="using-goodgrids-with-class-based-views">
+<h1>Using GoodGrids with class-based views<a class="headerlink" href="#using-goodgrids-with-class-based-views" title="Permalink to this headline">¶</a></h1>
+<p>Let’s assume your Django application already has a class-based view
+<code class="docutils literal notranslate"><span class="pre">DownloadDataCSVView</span></code> that returns a CSV file for your users to
+download. To create a view that let’s your users download Excel files,
+use the following snippet:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django_goodgrids.views</span> <span class="k">import</span> <span class="n">DownloadDataAsExcelView</span>
+
+<span class="k">class</span> <span class="nc">DownloadDataAsExcelView</span><span class="p">(</span><span class="n">GoodGridsExcelExportViewMixin</span><span class="p">,</span> <span class="n">DownloadDataCSVView</span><span class="p">):</span>
+    <span class="n">goodgrids_api_url</span> <span class="o">=</span> <span class="s1">&#39;https://goodgrids.com/create-excel-file/3a6c0d9ac7c74d&#39;</span>
+    <span class="n">excel_file_name</span> <span class="o">=</span> <span class="s1">&#39;data.xlsx&#39;</span>
+</pre></div>
+</div>
+<p>Make sure to set <code class="docutils literal notranslate"><span class="pre">goodgrids_api_url</span></code> to your actual API URL.</p>
+<p>You can then include this in your <code class="docutils literal notranslate"><span class="pre">urls.py</span></code>:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^download-data-as-excel-file/?$&#39;</span><span class="p">,</span>
+    <span class="n">views</span><span class="o">.</span><span class="n">DownloadDataAsExcelView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;download_data_as_excel_file&#39;</span><span class="p">),</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-goodgrids-with-function-based-views">
+<h1>Using Goodgrids with function-based views<a class="headerlink" href="#using-goodgrids-with-function-based-views" title="Permalink to this headline">¶</a></h1>
+<p>Let’s assume your Django application already has a function-based view
+named <code class="docutils literal notranslate"><span class="pre">download_data_as_csv_view</span></code> that returns a CSV file for your
+users to download. To create a view that let’s your users download Excel
+files, use the following snippet:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django_goodgrids.views</span> <span class="k">import</span> <span class="n">create_goodgrids_excel_export_view</span>
+
+<span class="n">download_data_as_excel_view</span> <span class="o">=</span> <span class="n">create_goodgrids_excel_export_view</span><span class="p">(</span>
+    <span class="n">csv_export_view</span><span class="o">=</span><span class="n">download_data_as_csv_view</span><span class="p">,</span>
+    <span class="n">goodgrids_api_url</span><span class="o">=</span><span class="s1">&#39;https://goodgrids.com/create-excel-file/3a6c0d9ac7c74d&#39;</span><span class="p">,</span>
+    <span class="n">excel_file_name</span><span class="o">=</span><span class="s1">&#39;data.xlsx&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Make sure to set <code class="docutils literal notranslate"><span class="pre">goodgrids_api_url</span></code> to your actual API URL.</p>
+<p>You can then include this in your <code class="docutils literal notranslate"><span class="pre">urls.py</span></code>:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^download-data-as-excel-file/?$&#39;</span><span class="p">,</span>
+    <span class="n">views</span><span class="o">.</span><span class="n">download_data_as_excel_view</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;download_data_as_excel_file&#39;</span><span class="p">),</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to django-goodgrids’s documentation!</a></li>
+<li><a class="reference internal" href="#django-goodgrids">django-goodgrids</a></li>
+<li><a class="reference internal" href="#about-goodgrids">About GoodGrids</a></li>
+<li><a class="reference internal" href="#using-goodgrids-with-class-based-views">Using GoodGrids with class-based views</a></li>
+<li><a class="reference internal" href="#using-goodgrids-with-function-based-views">Using Goodgrids with function-based views</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Krystian Cybulski.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
