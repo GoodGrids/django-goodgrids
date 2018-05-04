@@ -23,7 +23,6 @@ setup(
         ("Documentation", "http://django-goodgrids.readthedocs.io/en/latest/"),
         ("GoodGrids", "https://goodgrids.com"),
         ("Source", "https://github.com/goodgrids/django-goodgrids"),
-        ("PyPi", "https://pypi.org/project/django-goodgrids"),
         ("Tracker", "https://github.com/goodgrids/django-goodgrids/issues"),
     ]),
     license='MIT License',

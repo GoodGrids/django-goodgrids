@@ -13,9 +13,8 @@ Welcome to django-goodgrids's documentation!
 django-goodgrids
 ================
 
-Django API for creating Excel files from CSV using the `web-based
-GoodGrids API`_. Convert CSV files to Excel spreadsheets with ease.
-Let your users download nicely formatted Excel files instead of ugly CSVs.
+`django-goodgrids` is a client library for GoodGrids. If your application is currently
+serving CSV files, it can be extended to allow beautiful Excel downloads with ease.
 
 About GoodGrids
 ===============
